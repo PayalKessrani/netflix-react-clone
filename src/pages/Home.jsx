@@ -49,7 +49,7 @@ fetchUrl={`https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}`}
 
 <div className="px-6 mt-10">
 
-<h1 className="text-3xl mb-6 font-bold">
+<h1 className="text-2xl md:text-3xl mb-4 md:mb-6 font-bold">
 Trending Movies
 </h1>
 

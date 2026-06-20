@@ -1,39 +1,40 @@
-import { useEffect,useState } from "react"
-import MovieCard from "./MovieCard"
+import { useEffect, useState } from "react";
+import MovieCard from "./MovieCard";
 
-const API_KEY = "YOUR_API_KEY"
+function MovieRow({ title, fetchUrl }) {
+  const [movies, setMovies] = useState([]);
 
-function MovieRow({title,fetchUrl}){
+  useEffect(() => {
+    fetch(fetchUrl)
+      .then((res) => res.json())
+      .then((data) => setMovies(data.results || []));
+  }, [fetchUrl]);
 
-const [movies,setMovies] = useState([])
+  return (
+    <div className="p-6">
 
-useEffect(()=>{
+      <h2 className="text-white text-lg md:text-2xl mb-3 md:mb-4 font-bold">
+        {title}
+      </h2>
 
-fetch(fetchUrl)
-.then(res=>res.json())
-.then(data=>setMovies(data.results))
+      <div
+         className="
+flex
+gap-2
+sm:gap-3
+md:gap-4
+overflow-x-auto
+scrollbar-hide
+pb-4
+">
+      
+        {movies.map((movie) => (
+          <MovieCard key={movie.id} movie={movie} />
+        ))}
+      </div>
 
-},[fetchUrl])
-
-return(
-
-<div className="p-6">
-
-<h2 className="text-white text-2xl mb-4">
-{title}
-</h2>
-
-<div className="flex gap-4 overflow-x-scroll scrollbar-hide pb-5">
-{movies.map(movie=>(
-<MovieCard key={movie.id} movie={movie}/>
-))}
-
-</div>
-
-</div>
-
-)
-
+    </div>
+  );
 }
 
-export default MovieRow
+export default MovieRow;
